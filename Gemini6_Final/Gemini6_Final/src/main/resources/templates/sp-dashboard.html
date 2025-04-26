@@ -531,7 +531,7 @@ function updateCounts(plans) {
 
     if (planIndex !== -1) {
         try {
-            const response = await fetch(`/scienceplans/${selectedPlanId}/status?status=SUBMITTED`, {
+            const response = await fetch(`/allsp/${selectedPlanId}/status?status=Submitted`, {
                 method: 'PUT'
             });
 
