@@ -35,7 +35,7 @@ public class SciencePlanController {
     public ResponseEntity<String> updateSciencePlan(@PathVariable int id, @RequestBody SciencePlan sp) {
         ocs.deleteSciencePlanByNo(id);
         ocs.createSciencePlan(sp);
-        return ResponseEntity.ok("Science plan created successfully!");
+        return ResponseEntity.ok("Science plan adjust successfully!");
     }
 
 

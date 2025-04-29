@@ -184,7 +184,7 @@
     function formatDateTimeForInput(dateStr) {
       if (!dateStr) return '';
       try {
-        const date = new Date(dateStr);
+        let date = new Date(dateStr);
         // Handle potential "dd/MM/yyyy HH:mm:ss" format from backend if necessary
         if (typeof dateStr === 'string' && dateStr.includes('/')) {
           const parts = dateStr.split(/[\s/:]+/); // Split by space, /, :
@@ -240,10 +240,9 @@
       }
     }
 
-
     // --- Load Data and Populate Form ---
-    const urlParams = new URLSearchParams(window.location.search);
-    const currentPlanId = urlParams.get('planId');
+    const pathParts = window.location.pathname.split('/');
+    const currentPlanId = pathParts[pathParts.length - 1]; // Gets the last part of the path
 
     if (!currentPlanId) {
       alert("Error: No Plan ID provided for adjustment.");

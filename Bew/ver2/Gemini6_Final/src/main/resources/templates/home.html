@@ -218,8 +218,8 @@
                 <a href="#" class="text-gray-800 hover:text-primary font-medium">Home</a>
                 <a href="/allsp" class="text-gray-600 hover:text-primary">Plans</a>
                 <a href="/allsp/new" class="text-gray-600 hover:text-primary">Create</a>
-                <a href="/sp-list.html?status=created" class="text-gray-600 hover:text-primary">Test</a>
-                <a href="/sp-list.html?status=tested" class="text-gray-600 hover:text-primary">Submit</a>
+                <a href="/allsp/test-list" class="text-gray-600 hover:text-primary">Test</a>
+                <a href="/allsp/submit-list" class="text-gray-600 hover:text-primary">Submit</a>
 <!--                <a href="#" class="text-gray-600 hover:text-primary">Data Archive</a>-->
 <!--                <a href="#" class="text-gray-600 hover:text-primary">Contact</a>-->
             </nav>
@@ -240,8 +240,8 @@
                 </button>
                 <div class="dropdown bg-white shadow-lg rounded-md w-56 py-2 mt-1">
                     <div class="px-4 py-2 border-b border-gray-100">
-                        <p class="font-medium text-gray-800">Dr. Sarah Mitchell</p>
-                        <p class="text-sm text-gray-500">sarah.mitchell@astronomy.edu</p>
+                        <p class="font-medium text-gray-800" id="user-name-display"></p>
+                        <p class="text-sm text-gray-500" id="user-email-display"></p>
                     </div>
                     <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
                         <div class="w-5 h-5 flex items-center justify-center mr-3">
@@ -285,7 +285,7 @@
             <h1 class="text-4xl md:text-5xl font-bold mb-4">Exploring the Universe Through Advanced Astronomy</h1>
             <p class="text-lg md:text-xl mb-8 text-gray-100">The International Gemini Observatory operates twin 8.1-meter optical/infrared telescopes located in Hawaii and Chile, providing unprecedented coverage of both hemispheres of the sky.</p>
             <div class="flex flex-wrap gap-4">
-                <a href="/sp-list.html" class="bg-primary text-white px-6 py-3 !rounded-button whitespace-nowrap hover:bg-primary/90 transition font-medium">See all Science Plan</a>
+                <a href="/allsp" class="bg-primary text-white px-6 py-3 !rounded-button whitespace-nowrap hover:bg-primary/90 transition font-medium">See all Science Plan</a>
                 <a href="#" class="bg-white/10 backdrop-blur-sm text-white border border-white/30 px-6 py-3 !rounded-button whitespace-nowrap hover:bg-white/20 transition font-medium">View Latest Discoveries</a>
             </div>
         </div>
@@ -319,7 +319,7 @@
                     </div>
                     <h3 class="text-xl font-semibold mb-3 text-gray-800">Test Science Plan</h3>
                     <p class="text-gray-600 mb-6">Validate your observation plan before submission. Run simulations, check for conflicts, and optimize your research parameters.</p>
-                    <a href="/sp-list.html?status=created" class="inline-flex items-center text-primary font-medium hover:underline">
+                    <a href="/allsp/test-list" class="inline-flex items-center text-primary font-medium hover:underline">
                         Test Now
                         <div class="w-5 h-5 flex items-center justify-center ml-1">
                             <i class="ri-arrow-right-line"></i>
@@ -335,7 +335,7 @@
                     </div>
                     <h3 class="text-xl font-semibold mb-3 text-gray-800">Submit Science Plan</h3>
                     <p class="text-gray-600 mb-6">Submit your validated plan for review. Track approval status, receive feedback, and prepare for observation time.</p>
-                    <a href="/sp-list.html?status=tested" class="inline-flex items-center text-primary font-medium hover:underline">
+                    <a href="/allsp/submit-list" class="inline-flex items-center text-primary font-medium hover:underline">
                         Submit Plan
                         <div class="w-5 h-5 flex items-center justify-center ml-1">
                             <i class="ri-arrow-right-line"></i>
@@ -561,8 +561,8 @@
                 <h3 class="text-lg font-bold mb-4">Science Plans</h3>
                 <ul class="space-y-2">
                     <li><a href="/allsp/new" class="text-gray-400 hover:text-white transition">Create Science Plan</a></li>
-                    <li><a href="/sp-list.html?status=created" class="text-gray-400 hover:text-white transition">Test Science Plan</a></li>
-                    <li><a href="/sp-list.html?status=tested" class="text-gray-400 hover:text-white transition">Submit Science Plan</a></li>
+                    <li><a href="/allsp/test-list" class="text-gray-400 hover:text-white transition">Test Science Plan</a></li>
+                    <li><a href="/allsp/submit-list" class="text-gray-400 hover:text-white transition">Submit Science Plan</a></li>
                     <li><a href="#" class="text-gray-400 hover:text-white transition">Plan Guidelines</a></li>
                     <li><a href="#" class="text-gray-400 hover:text-white transition">Instrument Specifications</a></li>
                     <li><a href="#" class="text-gray-400 hover:text-white transition">Observation Time Calculator</a></li>
@@ -663,6 +663,23 @@
             console.error("Mobile menu button or navigation element not found.");
         }
 
+        // change user name
+        const userNameDisplay = document.getElementById('user-name-display');
+        const userEmailDisplay = document.getElementById('user-email-display');
+
+        // Get the username from localStorage
+        const username = localStorage.getItem('username');
+
+        if (username) {
+            // Display the stored name
+            userNameDisplay.textContent = username;  // Use name if available, else use username
+            // Construct the email
+            userEmailDisplay.textContent = username + '@gemini6.co.th';
+        } else {
+            // Handle case where username is not found (e.g., user not logged in)
+            userNameDisplay.textContent = "Guest User";
+            userEmailDisplay.textContent = "guest@example.com"; // Or leave it empty
+        }
 
         // Dropdown functionality without hover
         const dropdownTrigger = document.querySelector('.dropdown-trigger');

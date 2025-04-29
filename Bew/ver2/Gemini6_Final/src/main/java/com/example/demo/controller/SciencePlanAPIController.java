@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -17,28 +18,30 @@ public class SciencePlanAPIController {
         return "sp-list";
     }
 
-    @GetMapping("/sp-list.html")
-    public String showAllSciencePlanList() {
-        return "sp-list";
-    }
-//
-//    @GetMapping("/sp-list.html?status=created")
-//    public String showAllCreatedSciencePlanList() {
-//        return "/sp-list.html?status=created";
-//    }
-//
-//    @GetMapping("/sp-list.html?status=tested")
-//    public String showAllTestedSciencePlanList() {
-//        return "/sp-list.html?status=tested";
-//    }
-
-    @GetMapping("/adjustSP/{planId}")
-    public String showAdjustedSciencePlanPage(@PathVariable String planId) {
-        return "redirect:/adjustSP.html?planId=" + planId;
+    @GetMapping("/allsp/test-list")
+    public String showTestListPage() {
+        return "sp-list"; // Return the view name for sp-list.html
     }
 
-    @GetMapping("/adjustSP.html")
-    public String showAdjustedSciencePlanPage() {
-        return "adjustSP"; // Return the view name to render adjustSP.html
+    @GetMapping("/allsp/submit-list")
+    public String showSubmitListPage() {
+        return "sp-list"; // Return the view name for sp-list.html
     }
+
+    @GetMapping("/adjustsp/{planId}")
+    public String showAdjustPage(@PathVariable String planId, Model model) {
+        // You can optionally add the planId to the model if the view needs it directly
+        // model.addAttribute("planId", planId);
+        return "adjustSP"; // Directly return the view name for adjustSP.html
+    }
+
+//    @GetMapping("/adjustSP/{planId}")
+//    public String showAdjustedSciencePlanPage(@PathVariable String planId) {
+//        return "redirect:/adjustSP.html?planId=" + planId;
+//    }
+
+//    @GetMapping("/adjustSP.html")
+//    public String showAdjustedSciencePlanPage() {
+//        return "adjustSP"; // Return the view name to render adjustSP.html
+//    }
 }

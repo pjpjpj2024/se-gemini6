@@ -218,8 +218,8 @@
                 <a href="/" class="text-gray-800 hover:text-primary font-medium">Home</a>
                 <a href="/allsp" class="text-gray-600 hover:text-primary">Plans</a>
                 <a href="/allsp/new" class="text-gray-600 hover:text-primary">Create</a>
-                <a href="/sp-list.html?status=created" class="text-gray-600 hover:text-primary">Test</a>
-                <a href="/sp-list.html?status=tested" class="text-gray-600 hover:text-primary">Submit</a>
+                <a href="/allsp/test-list" class="text-gray-600 hover:text-primary">Test</a>
+                <a href="/allsp/submit-list" class="text-gray-600 hover:text-primary">Submit</a>
             </nav>
         </div>
         <div class="flex items-center space-x-4">
@@ -232,8 +232,8 @@
                 </button>
                 <div class="dropdown bg-white shadow-lg rounded-md w-56 py-2 mt-1">
                     <div class="px-4 py-2 border-b border-gray-100">
-                        <p class="font-medium text-gray-800">Dr. Sarah Mitchell</p>
-                        <p class="text-sm text-gray-500">sarah.mitchell@astronomy.edu</p>
+                        <p class="font-medium text-gray-800" id="user-name-display"></p>
+                        <p class="text-sm text-gray-500" id="user-email-display"></p>
                     </div>
                     <a href="#" class="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50">
                         <div class="w-5 h-5 flex items-center justify-center mr-3"><i class="ri-user-settings-line"></i></div> Account Settings
@@ -284,8 +284,8 @@
                 <h3 class="text-lg font-bold mb-4">Science Plans</h3>
                 <ul class="space-y-2">
                     <li><a href="/allsp/new" class="text-gray-400 hover:text-white transition">Create Plan</a></li>
-                    <li><a href="/sp-list.html?status=created" class="text-gray-400 hover:text-white transition">Test Plan</a></li>
-                    <li><a href="/sp-list.html?status=tested" class="text-gray-400 hover:text-white transition">Submit Plan</a></li>
+                    <li><a href="/allsp/test-list" class="text-gray-400 hover:text-white transition">Test Plan</a></li>
+                    <li><a href="/allsp/submit-list" class="text-gray-400 hover:text-white transition">Submit Plan</a></li>
                     <li><a href="/allsp" class="text-gray-400 hover:text-white transition">View All Plans</a></li>
                 </ul>
             </div>
@@ -350,6 +350,24 @@
         if(cancelSubmitBtn) cancelSubmitBtn.addEventListener('click', () => closeModal('submitModal'));
         if(confirmSubmitBtn) confirmSubmitBtn.addEventListener('click', submitPlan);
 
+        // change user name
+        const userNameDisplay = document.getElementById('user-name-display');
+        const userEmailDisplay = document.getElementById('user-email-display');
+
+        // Get the username from localStorage
+        const username = localStorage.getItem('username');
+
+        if (username) {
+            // Display the stored name
+            userNameDisplay.textContent = username;  // Use name if available, else use username
+            // Construct the email
+            userEmailDisplay.textContent = username + '@gemini6.co.th';
+        } else {
+            // Handle case where username is not found (e.g., user not logged in)
+            userNameDisplay.textContent = "Guest User";
+            userEmailDisplay.textContent = "guest@example.com"; // Or leave it empty
+        }
+
         // --- Helper Functions ---
         function capitalize(str) {
             if (!str) return '';
@@ -371,9 +389,15 @@
 
         // --- Core Logic ---
 
-        // 1. Determine Filter from URL Parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const filterStatus = urlParams.get('status'); // Will be 'created', 'tested', or null
+        // 1. Determine Filter from URL Path
+        let filterStatus = null; // Initialize filterStatus
+        const currentPath = window.location.pathname;
+
+        if (currentPath.endsWith('/test-list')) {
+            filterStatus = 'created';
+        } else if (currentPath.endsWith('/submit-list')) { // Assuming this path for submit
+            filterStatus = 'tested';
+        }
 
         // 2. Fetch All Science Plans from API (Modified to fetch more details)
         async function fetchPlans() {
@@ -572,7 +596,7 @@
                 adjustButton.style.backgroundColor = '#ff9800';
                 adjustButton.style.marginRight = '10px';
                 adjustButton.onclick = function() {
-                    window.location.href = `/adjustSP/${planId}`;
+                    window.location.href = `/adjustsp/${planId}`;
                 };
                 popup.appendChild(adjustButton);
             }
