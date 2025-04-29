@@ -217,72 +217,72 @@
 <h1>Create Science Plan</h1>
 
 <div class="container">
-<form id="planForm">
+    <form id="planForm">
 
-<!--    <label>Creator: <input type="text" name="creator" th:value="${session.username} ></label>-->
-<!--    <input type="text" name="creator" th:value="${session.username}" required readonly style="background-color: #f0f0f0;">-->
-    <label>Creator:
-        <input type="text" id="creatorInput" name="creator" th:value="${session.username}" required readonly style="background-color: #f0f0f0;">
-    </label>
-
-
+        <!--    <label>Creator: <input type="text" name="creator" th:value="${session.username} ></label>-->
+        <!--    <input type="text" name="creator" th:value="${session.username}" required readonly style="background-color: #f0f0f0;">-->
+        <label>Creator:
+            <input type="text" id="creatorInput" name="creator" th:value="${session.username}" required readonly style="background-color: #f0f0f0;">
+        </label>
 
 
-    <label>Submitter: <input type="text" name="submitter" required></label>
-    <label>Funding (USD): <input type="number" name="fundingInUSD" required></label>
-    <label>Objectives: <textarea name="objectives" required></textarea></label>
-    <label>Star System:
-        <select name="starSystem" required>
-            <option th:each="system : ${T(edu.gemini.app.ocs.model.StarSystem.CONSTELLATIONS).values()}"
-                    th:value="${system.name()}"
-                    th:text="${system.engName}"></option>
-        </select>
-    </label>
-    <label>Start Date: <input type="datetime-local" id="startDate" name="startDate" required></label>
-    <label>End Date: <input type="datetime-local" id="endDate" name="endDate" required></label>
-    <label>Telescope Location:
-        <select name="telescopeLocation" required>
-            <option value="CHILE">CHILE</option>
-            <option value="HAWAII">HAWAII</option>
-        </select>
-    </label>
 
-    <h2>Data Processing Requirements</h2>
-    <label>File Type:
-        <select name="fileType" required>
-            <option value="PNG">PNG</option>
-            <option value="JPEG">JPEG</option>
-            <option value="RAW">RAW</option>
-        </select>
-    </label>
-    <label>File Quality:
-        <select name="fileQuality" required>
-            <option value="Low">Low</option>
-            <option value="Fine">Fine</option>
-        </select>
-    </label>
-    <label>Color Type:
-        <select name="ColorType" id="colorTypeSelect" required>
-            <option value="Color mode">Color mode</option>
-            <option value="B&W mode">B&W mode</option>
-        </select>
-    </label>
 
-    <label id="contrastLabel">Contrast: <input type="number" step="0.1" name="contrast" id="contrastInput"></label>
-    <label id="brightnessLabel">Brightness: <input type="number" step="0.1" name="brightness" id="brightnessInput"></label>
-    <label id="saturationLabel">Saturation: <input type="number" step="0.1" name="saturation" id="saturationInput"></label>
-    <label id="luminanceLabel">Luminance: <input type="number" step="0.1" name="luminance" id="luminanceInput"></label> <label id="hueLabel">Hue: <input type="number" step="0.1" name="hue" id="hueInput"></label>
-    <label id="highlightsLabel">Highlights: <input type="number" step="0.1" name="highlights" id="highlightsInput"></label>
-    <label id="exposureLabel">Exposure: <input type="number" step="0.1" name="exposure" id="exposureInput"></label>
-    <label id="shadowsLabel">Shadows: <input type="number" step="0.1" name="shadows" id="shadowsInput"></label>
-    <label id="whitesLabel">Whites: <input type="number" step="0.1" name="whites" id="whitesInput"></label>
-    <label id="blacksLabel">Blacks: <input type="number" step="0.1" name="blacks" id="blacksInput"></label>
-    <label id="sharpnessLabel">Sharpness: <input type="number" step="0.1" name="sharpness" id="sharpnessInput"></label>
-    <div>
-        <button class="back-button" onclick="window.location.href='/allsp';">Back to All Science Plans</button>
-        <button type="submit">Create</button>
-    </div>
-</form>
+        <label>Submitter: <input type="text" name="submitter" required></label>
+        <label>Funding (USD): <input type="number" name="fundingInUSD" required></label>
+        <label>Objectives: <textarea name="objectives" required></textarea></label>
+        <label>Star System:
+            <select name="starSystem" required>
+                <option th:each="system : ${T(edu.gemini.app.ocs.model.StarSystem.CONSTELLATIONS).values()}"
+                        th:value="${system.name()}"
+                        th:text="${system.engName}"></option>
+            </select>
+        </label>
+        <label>Start Date: <input type="datetime-local" id="startDate" name="startDate" required></label>
+        <label>End Date: <input type="datetime-local" id="endDate" name="endDate" required></label>
+        <label>Telescope Location:
+            <select name="telescopeLocation" required>
+                <option value="CHILE">CHILE</option>
+                <option value="HAWAII">HAWAII</option>
+            </select>
+        </label>
+
+        <h2>Data Processing Requirements</h2>
+        <label>File Type:
+            <select name="fileType" required>
+                <option value="PNG">PNG</option>
+                <option value="JPEG">JPEG</option>
+                <option value="RAW">RAW</option>
+            </select>
+        </label>
+        <label>File Quality:
+            <select name="fileQuality" required>
+                <option value="Low">Low</option>
+                <option value="Fine">Fine</option>
+            </select>
+        </label>
+        <label>Color Type:
+            <select name="ColorType" id="colorTypeSelect" required>
+                <option value="Color mode">Color mode</option>
+                <option value="B&W mode">B&W mode</option>
+            </select>
+        </label>
+
+        <label id="contrastLabel">Contrast: <input type="number" step="0.1" name="contrast" id="contrastInput"></label>
+        <label id="brightnessLabel">Brightness: <input type="number" step="0.1" name="brightness" id="brightnessInput"></label>
+        <label id="saturationLabel">Saturation: <input type="number" step="0.1" name="saturation" id="saturationInput"></label>
+        <label id="luminanceLabel">Luminance: <input type="number" step="0.1" name="luminance" id="luminanceInput"></label> <label id="hueLabel">Hue: <input type="number" step="0.1" name="hue" id="hueInput"></label>
+        <label id="highlightsLabel">Highlights: <input type="number" step="0.1" name="highlights" id="highlightsInput"></label>
+        <label id="exposureLabel">Exposure: <input type="number" step="0.1" name="exposure" id="exposureInput"></label>
+        <label id="shadowsLabel">Shadows: <input type="number" step="0.1" name="shadows" id="shadowsInput"></label>
+        <label id="whitesLabel">Whites: <input type="number" step="0.1" name="whites" id="whitesInput"></label>
+        <label id="blacksLabel">Blacks: <input type="number" step="0.1" name="blacks" id="blacksInput"></label>
+        <label id="sharpnessLabel">Sharpness: <input type="number" step="0.1" name="sharpness" id="sharpnessInput"></label>
+        <div>
+            <button class="back-button" onclick="window.location.href='/allsp';">Back to All Science Plans</button>
+            <button type="submit">Create</button>
+        </div>
+    </form>
 </div>
 
 <script th:inline="javascript">
@@ -354,6 +354,8 @@
         colorTypeSelect.addEventListener('change', updateFieldStates);
         updateFieldStates();
 
+
+
         planForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -361,11 +363,36 @@
             const formData = new FormData(form);
             const jsonData = {};
 
+            // Get raw date strings from inputs
+            const startDateStr = formData.get("startDate");
+            const endDateStr = formData.get("endDate");
+
+            // Create Date objects for comparison
+            const startDate = new Date(startDateStr);
+            const endDate = new Date(endDateStr);
+
+            // --- Date Validation using Date objects ---
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                alert('Invalid start or end date.');
+                return;
+            }
+
+            // This is the correct and sufficient check
+            if (endDate < startDate) {
+                alert('End date cannot be before the start date.');
+                return;
+            }
+            // --- End Date Validation ---
+
+
+            // Populate jsonData *after* validation, formatting dates
             formData.forEach((val, key) => {
                 const element = form.elements[key];
+                 // Only include fields that are not disabled
                 if (element && element.disabled) {
                     return;
                 }
+
                 const isPotentiallyNumeric = element && (element.type === 'number' || element.step);
 
                 if (isPotentiallyNumeric && val !== '' && !isNaN(val)) {
@@ -375,28 +402,14 @@
                 }
             });
 
-            // 🛠️ SPECIAL FIX: If creator is missing or empty, use sessionUsername
+             // If creator is missing or empty, use sessionUsername
             if (!jsonData.creator || jsonData.creator.trim() === '') {
                 jsonData.creator = sessionUsername || 'undefined';
             }
 
-            // Format the dates
-            jsonData.startDate = formatDate(formData.get("startDate"));
-            jsonData.endDate = formatDate(formData.get("endDate"));
-
-            if (jsonData.startDate === null || jsonData.endDate === null) {
-                alert('Error processing dates. Please check the date formats.');
-                return;
-            }
-
-            // Check if end date is before the start date
-            const startDateObj = new Date(jsonData.startDate);
-            const endDateObj = new Date(jsonData.endDate);
-
-            if (endDateObj < startDateObj) {
-                alert('End date cannot be before the start date.');
-                return;
-            }
+            // Format dates for the JSON data sent to the server
+            jsonData.startDate = formatDate(startDateStr); // Pass the original string to formatDate
+            jsonData.endDate = formatDate(endDateStr);   // Pass the original string to formatDate
 
             console.log("Sending JSON:", JSON.stringify(jsonData));
 
