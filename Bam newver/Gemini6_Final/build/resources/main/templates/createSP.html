@@ -354,6 +354,8 @@
         colorTypeSelect.addEventListener('change', updateFieldStates);
         updateFieldStates();
 
+
+
         planForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
@@ -361,11 +363,36 @@
             const formData = new FormData(form);
             const jsonData = {};
 
+            // Get raw date strings from inputs
+            const startDateStr = formData.get("startDate");
+            const endDateStr = formData.get("endDate");
+
+            // Create Date objects for comparison
+            const startDate = new Date(startDateStr);
+            const endDate = new Date(endDateStr);
+
+            // --- Date Validation using Date objects ---
+            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                alert('Invalid start or end date.');
+                return;
+            }
+
+            // This is the correct and sufficient check
+            if (endDate < startDate) {
+                alert('End date cannot be before the start date.');
+                return;
+            }
+            // --- End Date Validation ---
+
+
+            // Populate jsonData *after* validation, formatting dates
             formData.forEach((val, key) => {
                 const element = form.elements[key];
+                 // Only include fields that are not disabled
                 if (element && element.disabled) {
                     return;
                 }
+
                 const isPotentiallyNumeric = element && (element.type === 'number' || element.step);
 
                 if (isPotentiallyNumeric && val !== '' && !isNaN(val)) {
@@ -375,28 +402,17 @@
                 }
             });
 
-            // 🛠️ SPECIAL FIX: If creator is missing or empty, use sessionUsername
+             // If creator is missing or empty, use sessionUsername
             if (!jsonData.creator || jsonData.creator.trim() === '') {
                 jsonData.creator = sessionUsername || 'undefined';
             }
 
-            // Format the dates
-            jsonData.startDate = formatDate(formData.get("startDate"));
-            jsonData.endDate = formatDate(formData.get("endDate"));
+            // Format dates for the JSON data sent to the server
+            jsonData.startDate = formatDate(startDateStr); // Pass the original string to formatDate
+            jsonData.endDate = formatDate(endDateStr);   // Pass the original string to formatDate
 
-            if (jsonData.startDate === null || jsonData.endDate === null) {
-                alert('Error processing dates. Please check the date formats.');
-                return;
-            }
 
-            // Check if end date is before the start date
-            const startDateObj = new Date(jsonData.startDate);
-            const endDateObj = new Date(jsonData.endDate);
 
-            if (endDateObj < startDateObj) {
-                alert('End date cannot be before the start date.');
-                return;
-            }
 
             console.log("Sending JSON:", JSON.stringify(jsonData));
 

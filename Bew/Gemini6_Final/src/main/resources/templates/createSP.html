@@ -389,6 +389,11 @@
                 return;
             }
 
+            if (jsonData.endDate < jsonData.startDate) {
+                alert('End date cannot be before the start date.');
+                return;
+            }
+
             console.log("Sending JSON:", JSON.stringify(jsonData));
 
             try {

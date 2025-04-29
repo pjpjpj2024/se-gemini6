@@ -30,10 +30,4 @@ public class SciencePlanRequest {
         return creator;
     }
 
-//    public void setCreator(String username) {
-//    }
-//
-//    public String getCreator() {
-//        return creator;
-//    }
 }
